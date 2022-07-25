@@ -5,6 +5,7 @@ import {FiPlus, FiMinus} from 'react-icons/fi'
 function App() {
   const [students, setStudents] = useState([]);
   const [click, setClick] = useState(false)
+//  const [tag, setTag] = useState("")
 
 useEffect(() => {
   setStudents([])
@@ -71,6 +72,17 @@ const arrange = (a,b) => {
 
 
 
+const handleSubmit = (event) => {
+  event.preventDefault()
+  let studentName = event.target[0].name
+  let currentStudent = students.find((student) => student.firstName + student.lastName === studentName)
+  currentStudent.tag = event.target[0].value
+  // console.log(event.target[0].value)
+  // createTag(event.target[0].value)
+  console.log(currentStudent)
+}//working on.....
+// const handletagChange = (event) => setTag(event.target.value)
+ 
  
 return (
   <div>
@@ -87,7 +99,6 @@ return (
                   <p>Company: {student.company}</p>
                   <p>Skill: {student.skill}</p>
                   <p>Average: {average(student.grades)}%</p>
-                  <p>{tag}</p>
                   <div>
                   {click === index ? (
                       <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
@@ -110,6 +121,23 @@ return (
                         </div> 
                       </div>
                   ) : null}
+                  </div>
+                  <div>
+                    <form onSubmit={handleSubmit}>
+                      <label htmlFor="tag">
+                        <input
+                         id="tag"
+                         name={student.firstName + student.lastName}
+                         type="text"
+                         placeholder="Add Tag"
+                         
+                         style={{
+                           border: '0px',
+                           borderBottom: '2px solid black'
+                         }}
+                        />
+                      </label>
+                    </form>
                   </div>
                 <br/> 
               </div> 
